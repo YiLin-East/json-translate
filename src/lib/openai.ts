@@ -24,12 +24,14 @@ export async function translate(
     2. Only translate value parts
     3. Keep JSON format valid
     4. Keep all special characters and formats
+    5. Translate all personal names as much as possible
+    6. Ensure that the original JSON structure is fully preserved, including all "{}" and "[]" symbols. Do not modify any JSON formatting.
     
     JSON content:
     ${text}`
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o",
       messages: [
         {
           role: "system",
@@ -107,7 +109,7 @@ export async function validateApiKey(apiKey: string): Promise<boolean> {
   try {
     // Send a minimal request to validate the API key
     await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o",
       messages: [{ role: "user", content: "test" }],
       max_tokens: 1
     })
